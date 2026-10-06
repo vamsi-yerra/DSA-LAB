@@ -1,0 +1,68 @@
+class Node:
+    def __init__(self, data):
+        """Initialise a single node with data and empty left/right pointers."""
+        self.data = data
+        self.left = None
+        self.right = None
+
+class LinkedBinaryTree:
+    def __init__(self):
+        """Initialise the tree with an empty root."""
+        self.root = None
+
+    
+    def preorder_traversal(self, node):
+        """Root -> Left -> Right"""
+        if node is not None:
+            print(node.data, end=" ")
+            self.preorder_traversal(node.left)
+            self.preorder_traversal(node.right)
+
+    def inorder_traversal(self, node):
+        """Left -> Root -> Right"""
+        if node is not None:
+            self.inorder_traversal(node.left)
+            print(node.data, end=" ")
+            self.inorder_traversal(node.right)
+
+    def postorder_traversal(self, node):
+        """Left -> Right -> Root"""
+        if node is not None:
+            self.postorder_traversal(node.left)
+            self.postorder_traversal(node.right)
+            print(node.data, end=" ")
+
+
+
+if __name__ == "__main__":
+    
+    tree = LinkedBinaryTree()
+
+    print("--- Constructing Tree using Links ---")
+
+    tree.root = Node("A")
+    node_b = Node("B")
+    node_c = Node("C")
+    node_d = Node("D")
+    node_e = Node("E")
+
+    tree.root.left = node_b    
+    tree.root.right = node_c   
+    node_b.left = node_d       
+    node_b.right = node_e      
+
+    print("Tree built successfully via pointer connections.\n")
+
+    print("--- Tree Traversals ---")
+    
+    print("Pre-order Traversal:")
+    tree.preorder_traversal(tree.root)  
+    print("\n")
+
+    print("In-order Traversal:")
+    tree.inorder_traversal(tree.root)  
+    print("\n")
+
+    print("Post-order Traversal:")
+    tree.postorder_traversal(tree.root) 
+    print()

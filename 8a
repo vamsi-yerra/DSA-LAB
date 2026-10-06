@@ -1,0 +1,90 @@
+class BinaryTreeArray:
+    def __init__(self, size):
+        """Initialise the tree with a fixed max capacity."""
+        self.max_size = size
+     
+        self.tree = [None] * size
+
+    def set_root(self, key):
+        """Insert or update the root node."""
+        self.tree[0] = key
+        print(f"Root set to: {key}")
+
+    def set_left(self, key, parent_index):
+        """Insert a left child for the node at parent_index."""
+        if self.tree[parent_index] is None:
+            print(f"Error: Parent at index {parent_index} does not exist.")
+            return
+        
+        left_index = (2 * parent_index) + 1
+        if left_index < self.max_size:
+            self.tree[left_index] = key
+            print(f"Inserted left child '{key}' at index {left_index} for parent index {parent_index}")
+        else:
+            print(f"Error: Tree capacity exceeded while trying to insert left child '{key}'.")
+
+    def set_right(self, key, parent_index):
+        """Insert a right child for the node at parent_index."""
+        if self.tree[parent_index] is None:
+            print(f"Error: Parent at index {parent_index} does not exist.")
+            return
+        
+        right_index = (2 * parent_index) + 2
+        if right_index < self.max_size:
+            self.tree[right_index] = key
+            print(f"Inserted right child '{key}' at index {right_index} for parent index {parent_index}")
+        else:
+            print(f"Error: Tree capacity exceeded while trying to insert right child '{key}'.")
+
+    def display_array(self):
+        """Print the raw array representation of the tree."""
+        print("\nRaw Array representation:", self.tree)
+
+    
+    
+    def preorder_traversal(self, index=0):
+        """Root -> Left -> Right"""
+        if index < self.max_size and self.tree[index] is not None:
+            print(self.tree[index], end=" ")
+            self.preorder_traversal((2 * index) + 1)
+            self.preorder_traversal((2 * index) + 2)
+
+    def inorder_traversal(self, index=0):
+        """Left -> Root -> Right"""
+        if index < self.max_size and self.tree[index] is not None:
+            self.inorder_traversal((2 * index) + 1)
+            print(self.tree[index], end=" ")
+            self.inorder_traversal((2 * index) + 2)
+
+    def postorder_traversal(self, index=0):
+        """Left -> Right -> Root"""
+        if index < self.max_size and self.tree[index] is not None:
+            self.postorder_traversal((2 * index) + 1)
+            self.postorder_traversal((2 * index) + 2)
+            print(self.tree[index], end=" ")
+if __name__ == "__main__":
+   
+    bt = BinaryTreeArray(10)
+
+    print("--- Inserting Elements ---")
+    bt.set_root("A")
+    bt.set_left("B", 0)   
+    bt.set_right("C", 0)  
+    bt.set_left("D", 1)   
+    bt.set_right("E", 1)  
+
+    bt.display_array()
+
+    print("\n--- Tree Traversals ---")
+    
+    print("Pre-order Traversal:")
+    bt.preorder_traversal()  
+    print("\n")
+
+    print("In-order Traversal:")
+    bt.inorder_traversal()   
+    print("\n")
+
+    print("Post-order Traversal:")
+    bt.postorder_traversal() 
+    print()
